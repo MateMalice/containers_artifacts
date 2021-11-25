@@ -1,0 +1,15 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: userprofile-service
+  namespace: api
+  labels:
+    app: userprofile
+spec:
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+  selector:
+    app: userprofile
+  type: ClusterIP
