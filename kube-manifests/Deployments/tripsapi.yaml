@@ -16,7 +16,7 @@ spec:
         app: tripsapi
     spec:
       containers:
-      - image: registrytzm1400.azurecr.io/poi:1.0
+      - image: registrytzm1400.azurecr.io/tripsapi:1.0
         env:
         - name: SQL_USER
           valueFrom:
