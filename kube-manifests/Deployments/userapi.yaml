@@ -1,0 +1,48 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: userapi
+  namespace: api
+  labels:
+    app: userapi
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: userapi
+  template:
+    metadata:
+      labels:
+        app: userapi
+    spec:
+      containers:
+      - image: registrytzm1400.azurecr.io/userapi:1.0
+        env:
+        - name: SQL_USER
+          valueFrom:
+            secretKeyRef:
+              name: sql-connection
+              key: SQL_USER
+        - name: SQL_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: sql-connection
+              key: SQL_PASSWORD
+        - name: SQL_SERVER
+          valueFrom:
+            secretKeyRef:
+              name: sql-connection
+              key: SQL_SERVER
+        - name: SQL_DBNAME
+          valueFrom:
+            secretKeyRef:
+              name: sql-connection
+              key: SQL_DBNAME
+        - name: PORT
+          value: "80"
+        name: userapi
+        ports:
+        - containerPort: 80
+        resources: {}
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always

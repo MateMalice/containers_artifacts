@@ -1,0 +1,13 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  namespace: web
+  name: apidev-view
+subjects:
+- kind: Group
+  name: 70506db2-dbd3-4564-8674-a3ab434c9b9f
+  apiGroup: rbac.authorization.k8s.io
+roleRef:
+  kind: ClusterRole 
+  name: view
+  apiGroup: rbac.authorization.k8s.io

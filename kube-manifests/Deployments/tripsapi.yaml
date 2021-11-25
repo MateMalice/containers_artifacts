@@ -1,0 +1,54 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tripsapi
+  namespace: api
+  labels:
+    app: tripsapi
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: tripsapi
+  template:
+    metadata:
+      labels:
+        app: tripsapi
+    spec:
+      containers:
+      - image: registrytzm1400.azurecr.io/poi:1.0
+        env:
+        - name: SQL_USER
+          valueFrom:
+            secretKeyRef:
+              name: sql-connection
+              key: SQL_USER
+        - name: SQL_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: sql-connection
+              key: SQL_PASSWORD
+        - name: SQL_SERVER
+          valueFrom:
+            secretKeyRef:
+              name: sql-connection
+              key: SQL_SERVER
+        - name: SQL_DBNAME
+          valueFrom:
+            secretKeyRef:
+              name: sql-connection
+              key: SQL_DBNAME
+        - name: WEB_PORT
+          value: "8080"
+        - name: WEB_SERVER_BASE_URI
+          value: "http://poi-service:8080"
+        - name: CONFIG_FILES_PATH
+          value: "/secrets"
+        - name: ASPNETCORE_ENVIRONMENT
+          value: "Development"
+        name: poi
+        ports:
+        - containerPort: 8080
+        resources: {}
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
