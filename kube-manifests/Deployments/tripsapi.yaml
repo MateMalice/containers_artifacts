@@ -38,15 +38,15 @@ spec:
             secretKeyRef:
               name: sql-connection
               key: SQL_DBNAME
-        - name: WEB_PORT
+        - name: PORT
           value: "80"
-        - name: WEB_SERVER_BASE_URI
-          value: "http://poi-service.api.svc.cluster.local:8080"
+        - name: CREDENTIAL_METHOD
+          value: "username_and_password"
         - name: CONFIG_FILES_PATH
           value: "/secrets"
-        - name: ASPNETCORE_ENVIRONMENT
-          value: "Development"
-        name: poi
+        - name: OPENAPI_DOCS_URI
+          value: "http://trispapi-service.api.svc.cluster.local"
+        name: tripsapi
         ports:
         - containerPort: 80
         resources: {}
